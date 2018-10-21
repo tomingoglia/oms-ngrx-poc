@@ -1,8 +1,15 @@
 import { Injectable } from "@angular/core";
-import { Actions, Effect } from "@ngrx/effects";
+import { Actions, Effect, ofType } from "@ngrx/effects";
 import * as OrderDetailActions from "./order-detail.actions";
 import { of, from } from "rxjs";
-import { catchError, switchMap, map, tap } from "rxjs/operators";
+import {
+  catchError,
+  switchMap,
+  map,
+  tap,
+  mergeMap,
+  flatMap
+} from "rxjs/operators";
 import { OrderService } from "../order/order.service";
 import * as ProductActions from "../product/product.actions";
 import * as ODPIndexActions from "../product_order-detail_index/product_order-detail_index.actions";
@@ -18,7 +25,7 @@ export class OrderDetailEffects {
   @Effect()
   loadLegacyOrderDetail$ = this.actions$
     .ofType<OrderDetailActions.LoadDetailLegacy>(
-      OrderDetailActions.LOAD_DETAIL_LEGACY
+      OrderDetailActions.OrderDetailActionTypes.LOAD_DETAIL_LEGACY
     )
     .pipe(
       switchMap(() => {
@@ -37,24 +44,25 @@ export class OrderDetailEffects {
 
   // get legacy order details
   @Effect()
-  changeQuantity$ = this.actions$
-    .ofType<OrderDetailActions.ChangeQuantity>(
-      OrderDetailActions.CHANGE_QUANTITY
+  changeQuantity$ = this.actions$.pipe(
+    ofType<OrderDetailActions.ChangeQuantity>(
+      OrderDetailActions.OrderDetailActionTypes.CHANGE_QUANTITY
+    ),
+    map((action: OrderDetailActions.ChangeQuantity) => action),
+    mergeMap(action =>
+      this.orderService
+        .changeQuantity({ id: action.id, quantity: action.value })
+        .pipe(
+          map(
+            orderDetail =>
+              new OrderDetailActions.ChangeQuantitySuccess(orderDetail)
+          ),
+          catchError(error =>
+            of(new OrderDetailActions.ChangeQuantityFail(error))
+          )
+        )
     )
-    .pipe(
-      switchMap(action => {
-        return this.orderService
-          .changeQuantity({ id: action.id, quantity: action.value })
-          .pipe(
-            map(orderDetail => {
-              return new OrderDetailActions.ChangeQuantitySuccess(orderDetail);
-            }),
-            catchError(error =>
-              of(new OrderDetailActions.ChangeQuantityFail(error))
-            )
-          );
-      })
-    );
+  );
 }
 
 function processODPIndex(orderDetails: Array<OrderDetail>): Array<PODIndex> {

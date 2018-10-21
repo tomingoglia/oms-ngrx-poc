@@ -13,21 +13,21 @@ export function orderDetailReducer(
   action: actions.OrderDetailActions
 ) {
   switch (action.type) {
-    case actions.LOAD_DETAIL_LEGACY_SUCCESS:
+    case actions.OrderDetailActionTypes.LOAD_DETAIL_LEGACY_SUCCESS:
       return {
         ...orderDetailAdapter.addMany(action.orderDetails, state),
         loading: false,
         loaded: true
       };
 
-    case actions.LOAD_DETAIL_LEGACY_FAIL:
+    case actions.OrderDetailActionTypes.LOAD_DETAIL_LEGACY_FAIL:
       return {
         ...state,
         loading: false,
         loaded: false
       };
 
-    case actions.CHANGE_QUANTITY:
+    case actions.OrderDetailActionTypes.CHANGE_QUANTITY:
       return {
         ...orderDetailAdapter.updateOne(
           {
@@ -40,7 +40,7 @@ export function orderDetailReducer(
         loaded: false
       };
 
-    case actions.CHANGE_QUANTITY_SUCCESS:
+    case actions.OrderDetailActionTypes.CHANGE_QUANTITY_SUCCESS:
       return {
         ...orderDetailAdapter.updateOne(
           {
@@ -53,7 +53,7 @@ export function orderDetailReducer(
         loaded: true
       };
 
-    case actions.CHANGE_QUANTITY_FAIL:
+    case actions.OrderDetailActionTypes.CHANGE_QUANTITY_FAIL:
       return {
         ...orderDetailAdapter.updateOne(
           {

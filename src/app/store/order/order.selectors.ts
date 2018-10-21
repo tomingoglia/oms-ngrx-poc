@@ -71,6 +71,9 @@ export const selectFullOrderList = createSelector(
 
 function CreateFullOrderListSelector(selectors): Array<Order> {
   //Use the ids here. This way we can control the order. We can't just by using keys on the dictionary.
+  // if (selectors.orderIds.length > 0) {
+  //   return null;
+  // }
   return selectors.orderIds.map(key => {
     //get the current order entity. Keep it immutable?
     let orderEntity = { ...selectors.orderEntities[key] };

@@ -35,20 +35,20 @@ export function productReducer(
   action: actions.ProductActions
 ) {
   switch (action.type) {
-    case actions.CREATE:
+    case actions.ProductActionTypes.CREATE:
       return productAdapter.addOne(action.product, state);
 
-    case actions.UPDATE:
+    case actions.ProductActionTypes.UPDATE:
       console.log(action.changes);
       return productAdapter.updateOne(
         { id: action.id, changes: action.changes },
         state
       );
 
-    case actions.DELETE:
+    case actions.ProductActionTypes.DELETE:
       return productAdapter.removeOne(action.id, state);
 
-    case actions.ADD_MANY:
+    case actions.ProductActionTypes.ADD_MANY:
       return productAdapter.addMany(action.products, state);
 
     default:

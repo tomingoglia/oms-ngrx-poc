@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Order Reducer LoadLegacy should return the initalState 1`] = `Object {}`;
+
+exports[`Order Reducer LoadLegacySuccess should return the updated order entities 1`] = `
+Object {
+  "a1": Object {
+    "id": "a1",
+    "lineItems": null,
+    "name": "test",
+  },
+}
+`;

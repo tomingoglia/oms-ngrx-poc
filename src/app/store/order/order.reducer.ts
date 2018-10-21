@@ -13,69 +13,69 @@ export function orderReducer(
   action: actions.OrderActions
 ) {
   switch (action.type) {
-    case actions.LOAD:
+    case actions.OrderActionTypes.LOAD:
       return {
         ...state,
         loading: true
       };
 
-    case actions.LOAD_SUCCESS:
+    case actions.OrderActionTypes.LOAD_SUCCESS:
       return {
         ...orderAdapter.addMany(action.orders, state),
         loading: false,
         loaded: true
       };
 
-    case actions.LOAD_FAIL:
+    case actions.OrderActionTypes.LOAD_FAIL:
       return {
         ...state,
         loading: false,
         loaded: false
       };
 
-    case actions.CREATE:
+    case actions.OrderActionTypes.CREATE:
       return {
         ...state,
         loading: true
       };
 
-    case actions.CREATE_SUCCESS:
+    case actions.OrderActionTypes.CREATE_SUCCESS:
       return {
         ...orderAdapter.addOne(action.order, state),
         loading: false,
         loaded: true
       };
 
-    case actions.CREATE_FAIL:
+    case actions.OrderActionTypes.CREATE_FAIL:
       return {
         ...state,
         loading: false,
         loaded: false
       };
 
-    case actions.UPDATE:
+    case actions.OrderActionTypes.UPDATE:
       return orderAdapter.updateOne(
         { id: action.id, changes: action.changes },
         state
       );
 
-    case actions.DELETE:
+    case actions.OrderActionTypes.DELETE:
       return orderAdapter.removeOne(action.id, state);
 
-    case actions.LOAD_LEGACY:
+    case actions.OrderActionTypes.LOAD_LEGACY:
       return {
         ...state,
         loading: true
       };
 
-    case actions.LOAD_LEGACY_SUCCESS:
+    case actions.OrderActionTypes.LOAD_LEGACY_SUCCESS:
       return {
         ...orderAdapter.addOne(TransformLegacyOrder(action.order), state),
         loading: false,
         loaded: true
       };
 
-    case actions.LOAD_LEGACY_FAIL:
+    case actions.OrderActionTypes.LOAD_LEGACY_FAIL:
       return {
         ...state,
         loading: false,
@@ -90,20 +90,4 @@ export function orderReducer(
 /* Private functions */
 function TransformLegacyOrder(order: any): Order {
   return { ...order };
-  // return {
-  //   id: "o3",
-  //   name: "Xanders's Order",
-  //   lineItems: [
-  //     {
-  //       lid: "li5",
-  //       pid: "p1",
-  //       qtyEach: 3
-  //     },
-  //     {
-  //       lid: "li6",
-  //       pid: "p3",
-  //       qtyCase: 1
-  //     }
-  //   ]
-  // };
 }

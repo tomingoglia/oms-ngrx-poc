@@ -11,21 +11,23 @@ export class OrderEffects {
 
   // Get Orders
   @Effect()
-  loadOrders$ = this.actions$.ofType<OrderActions.Load>(OrderActions.LOAD).pipe(
-    switchMap(() => {
-      return this.orderService.getOrders().pipe(
-        map(orders => {
-          return new OrderActions.LoadSuccess(orders);
-        }),
-        catchError(error => of(new OrderActions.LoadFail(error)))
-      );
-    })
-  );
+  loadOrders$ = this.actions$
+    .ofType<OrderActions.Load>(OrderActions.OrderActionTypes.LOAD)
+    .pipe(
+      switchMap(() => {
+        return this.orderService.getOrders().pipe(
+          map(orders => {
+            return new OrderActions.LoadSuccess(orders);
+          }),
+          catchError(error => of(new OrderActions.LoadFail(error)))
+        );
+      })
+    );
 
   // Add Order
   @Effect()
   createOrder$ = this.actions$
-    .ofType<OrderActions.Create>(OrderActions.CREATE)
+    .ofType<OrderActions.Create>(OrderActions.OrderActionTypes.CREATE)
     .pipe(
       switchMap(action => {
         return this.orderService.addOrder(action.order).pipe(
@@ -40,7 +42,7 @@ export class OrderEffects {
   // get legacy order
   @Effect()
   loadLegacyOrders$ = this.actions$
-    .ofType<OrderActions.LoadLegacy>(OrderActions.LOAD_LEGACY)
+    .ofType<OrderActions.LoadLegacy>(OrderActions.OrderActionTypes.LOAD_LEGACY)
     .pipe(
       switchMap(() => {
         return this.orderService.getOrderLegacy().pipe(

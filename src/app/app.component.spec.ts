@@ -5,8 +5,7 @@ import { MaterialModule } from "./material";
 import { OrderModule } from "./order/order.module";
 import { ProductModule } from "./product/product.module";
 import { StoreModule } from "@ngrx/store";
-import { EffectsModule } from "@ngrx/effects";
-import { reducers, effects } from "./store";
+import { reducers } from "./store";
 
 describe("AppComponent", () => {
   beforeEach(async(() => {

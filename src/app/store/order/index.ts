@@ -1,6 +1,6 @@
 import * as orderActions from "./order.actions";
 import * as orderSelectors from "./order.selectors";
-//export * from "./order.actions";
-//export * from "./order.selectors";
+import * as orderReducers from "./order.reducer";
+import * as orderEffects from "./order.effects";
 export * from "./order.model";
-export { orderActions, orderSelectors };
+export { orderActions, orderEffects, orderReducers, orderSelectors };

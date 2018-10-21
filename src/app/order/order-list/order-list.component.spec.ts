@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { OrderListComponent } from "./order-list.component";
 import { MaterialModule } from "../../material";
 import { StoreModule } from "@ngrx/store";
-import { reducers, effects } from "../../store";
+import { reducers } from "../../store";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 describe("OrderListComponent", () => {

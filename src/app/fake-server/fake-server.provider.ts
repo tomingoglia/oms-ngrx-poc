@@ -804,7 +804,7 @@ export class FakeServerInterceptor implements HttpInterceptor {
 
         //delay the response
         .pipe(materialize())
-        .pipe(delay(500))
+        .pipe(delay(1500))
         .pipe(dematerialize())
     );
   }

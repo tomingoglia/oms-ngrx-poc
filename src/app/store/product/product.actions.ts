@@ -1,28 +1,28 @@
 import { Action } from "@ngrx/store";
 import { Product } from "./product.model";
-
-export const CREATE = "[Product] Create";
-export const UPDATE = "[Product] Update";
-export const DELETE = "[Product] Delete";
-export const ADD_MANY = "[Product] Add Many";
-
+export enum ProductActionTypes {
+  CREATE = "[Product] Create",
+  UPDATE = "[Product] Update",
+  DELETE = "[Product] Delete",
+  ADD_MANY = "[Product] Add Many"
+}
 export class Create implements Action {
-  readonly type = CREATE;
+  readonly type = ProductActionTypes.CREATE;
   constructor(public product: Product) {}
 }
 
 export class Update implements Action {
-  readonly type = UPDATE;
+  readonly type = ProductActionTypes.UPDATE;
   constructor(public id: string, public changes: Partial<Product>) {}
 }
 
 export class Delete implements Action {
-  readonly type = DELETE;
+  readonly type = ProductActionTypes.DELETE;
   constructor(public id: string) {}
 }
 
 export class AddMany implements Action {
-  readonly type = ADD_MANY;
+  readonly type = ProductActionTypes.ADD_MANY;
   constructor(public products: Array<Product>) {}
 }
 export type ProductActions = Create | Update | Delete | AddMany;
