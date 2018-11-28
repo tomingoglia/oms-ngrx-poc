@@ -1,0 +1,11 @@
+<div class="mat-typography" style="margin: 20px">
+  <h2>Products with Order Details</h2>
+  <div *ngFor="let product of products$ | async;trackBy: trackByFnProduct">
+    <span>{{ product.name }}</span>&nbsp;-&nbsp;
+    <span *ngIf="product.orderDetails">Order Quantity:
+      <product-quantity [orderDetails]="product.orderDetails" [product]="product" [quantity]="product.orderDetails.quantity"
+        [updating]="product.orderDetails.updating" (changeQuantity)="changeQuantity($event)">
+      </product-quantity>
+    </span>
+  </div>
+</div>

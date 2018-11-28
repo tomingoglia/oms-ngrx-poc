@@ -1,9 +1,8 @@
-export interface OrderDetail {
-  id: string;
+export interface GuideDetail {
+  lineNumber: string;
   productId: string;
   product: any;
   quantity: number;
-  brokenCase: boolean;
   updating: boolean;
   fail: boolean;
 }

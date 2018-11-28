@@ -12,12 +12,12 @@ export enum OrderDetailActionTypes {
 
 export class ChangeQuantity implements Action {
   readonly type = OrderDetailActionTypes.CHANGE_QUANTITY;
-  constructor(public id: string, public value: number) {}
+  constructor(public data: any) {}
 }
 
 export class ChangeQuantitySuccess implements Action {
   readonly type = OrderDetailActionTypes.CHANGE_QUANTITY_SUCCESS;
-  constructor(public orderDetail: OrderDetail) {}
+  constructor(public orderDetail: OrderDetail, public tempId: string) {}
 }
 export class ChangeQuantityFail implements Action {
   readonly type = OrderDetailActionTypes.CHANGE_QUANTITY_FAIL;

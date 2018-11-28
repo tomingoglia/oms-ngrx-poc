@@ -1,0 +1,10 @@
+<div class="mat-typography" style="margin: 20px">
+  <h2>Order Guide</h2>
+  <div *ngFor="let guide of guides$ | async;trackBy: trackByFnGuide">
+    <div class="bounds" *ngFor="let guideDetail of guide.guideDetails;trackBy: trackByFnGuideDetail">
+      <product-card [product]="guideDetail.product" [lineNumber]="guideDetail.lineNumber" [updating]="guideDetail.product.orderDetails ? guideDetail.product.orderDetails.updating : false"
+        [quantity]="guideDetail.product.orderDetails ? guideDetail.product.orderDetails.quantity : null" (clickIcon)="clickIcon($event)"
+        (changeQuantity)="changeQuantity($event)"></product-card>
+    </div>
+  </div>
+</div>

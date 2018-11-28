@@ -1,9 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { Order, orderActions, orderSelectors } from "../../store/order";
-import { productSelectors } from "../../store/product";
-import { orderDetailActions } from "../../store/order-detail";
+import { Order, orderActions, orderSelectors } from "@app/store/order";
+import { orderDetailActions } from "@app/store/order-detail";
 
 @Component({
   selector: "order-list",
@@ -44,8 +43,8 @@ export class OrderListComponent implements OnInit {
     this.store.dispatch(new orderActions.Create(order));
   }
 
-  changeQuantity(id, value) {
-    this.store.dispatch(new orderDetailActions.ChangeQuantity(id, value));
+  changeQuantity(data) {
+    this.store.dispatch(new orderDetailActions.ChangeQuantity(data));
   }
 
   deleteOrder(id, name) {

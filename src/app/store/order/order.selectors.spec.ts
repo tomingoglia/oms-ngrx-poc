@@ -1,15 +1,4 @@
-// import * as store from ".";
-// import { Store, StoreModule } from "@ngrx/store";
-// import { TestBed, async } from "@angular/core/testing";
-// import { reducers } from "../../store";
-// import { Observable } from "rxjs/internal/Observable";
 import { orderSelectors } from "./";
-// const actions = store.orderActions;
-// const effects = store.orderEffects;
-// const reducers = store.orderReducers;
-// const selectors = store.orderSelectors;
-// let ngStore: Store<store.orderSelectors.State>;
-// let orders$: Observable<any>;
 const initialState = {
   order: {
     ids: ["99adbfc4-8fbb-e811-af11-000d3a30a3ba"],
@@ -813,21 +802,6 @@ const initialState = {
     loaded: true
   }
 };
-// beforeEach(async(() => {
-//   TestBed.configureTestingModule({
-//     imports: [StoreModule.forRoot(reducers)],
-//     providers: [
-//       {
-//         provide: Store,
-//         useClass: Store
-//       }
-//     ]
-//   }).compileComponents();
-// }));
-
-// beforeEach(() => {
-//   ngStore = TestBed.get(Store);
-// });
 
 describe("Selectors", () => {
   describe("selectFullOrderList", () => {

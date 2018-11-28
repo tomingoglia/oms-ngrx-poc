@@ -36,7 +36,7 @@ module.exports = {
   testPathIgnorePatterns: ["/node_modules/", "/dist/", "src/app/*.{js}"],
   testResultsProcessor: "jest-sonar-reporter",
   moduleNameMapper: {
-    "app/(.*)": "<rootDir>/src/app/$1",
-    "@common/(.*)": "<rootDir>/src/app/common/$1"
+    "@app/(.*)": "<rootDir>/src/app/$1",
+    "@env/(.*)": "<rootDir>/environments/$1"
   }
 };

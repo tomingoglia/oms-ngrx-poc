@@ -1,5 +1,5 @@
 import * as actions from "./order-detail.actions";
-import { EntityState, createEntityAdapter } from "@ngrx/entity";
+import { EntityState, createEntityAdapter, EntityAdapter } from "@ngrx/entity";
 import { OrderDetail } from "./order-detail.model";
 
 export const orderDetailAdapter = createEntityAdapter<OrderDetail>();
@@ -28,30 +28,40 @@ export function orderDetailReducer(
       };
 
     case actions.OrderDetailActionTypes.CHANGE_QUANTITY:
-      return {
-        ...orderDetailAdapter.updateOne(
-          {
-            id: action.id,
-            changes: { quantity: action.value, updating: true }
-          },
-          state
-        ),
-        loading: true,
-        loaded: false
-      };
+      return changeQuanity(state, orderDetailAdapter, action);
 
     case actions.OrderDetailActionTypes.CHANGE_QUANTITY_SUCCESS:
-      return {
-        ...orderDetailAdapter.updateOne(
-          {
-            id: action.orderDetail.id,
-            changes: { quantity: action.orderDetail.quantity, updating: false } //could just spread the return object
-          },
-          state
-        ),
-        loading: false,
-        loaded: true
-      };
+      console.log("CHANGE_QUANTITY_SUCCESS", action);
+      if (action.tempId) {
+        const newState = action.tempId
+          ? {
+              ...orderDetailAdapter.removeOne(action.tempId, state)
+            }
+          : undefined;
+        action.orderDetail.updating = false;
+
+        return {
+          ...orderDetailAdapter.addOne(action.orderDetail, newState),
+          loading: false,
+          loaded: true
+        };
+      } else {
+        //console.log("CHANGE_QUANTITY_SUCCESS", action);
+        return {
+          ...orderDetailAdapter.updateOne(
+            {
+              id: action.orderDetail.id,
+              changes: {
+                quantity: action.orderDetail.quantity,
+                updating: false
+              } //could just spread the return object
+            },
+            state
+          ),
+          loading: false,
+          loaded: true
+        };
+      }
 
     case actions.OrderDetailActionTypes.CHANGE_QUANTITY_FAIL:
       return {
@@ -72,5 +82,60 @@ export function orderDetailReducer(
 
     default:
       return state;
+  }
+}
+
+function changeQuanity(
+  state: State,
+  orderDetailAdapter: EntityAdapter<OrderDetail>,
+  action: any
+): State | { loading: boolean; loaded: boolean } {
+  if (action.quantity === 0) {
+    return {
+      ...orderDetailAdapter.updateOne(
+        {
+          id: action.id,
+          changes: { quantity: action.value, deleting: true, updating: true }
+        },
+        state
+      ),
+      loading: true,
+      loaded: false
+    };
+  } else {
+    if (action.data.id) {
+      return {
+        ...orderDetailAdapter.updateOne(
+          {
+            id: action.data.id,
+            changes: { quantity: action.data.quantity, updating: true }
+          },
+          state
+        ),
+        loading: true,
+        loaded: false
+      };
+    } else {
+      return {
+        ...orderDetailAdapter.addOne(createOrderDetail(action), state),
+        loading: true,
+        loaded: false
+      };
+    }
+  }
+
+  function createOrderDetail(action: any): OrderDetail {
+    action.data.tempId = `temp:${action.data.product.id}:${
+      action.data.brokenCase
+    }`;
+    return {
+      id: action.data.tempId,
+      productId: action.data.product.id,
+      product: action.data.product,
+      quantity: action.data.quantity,
+      brokenCase: action.data.brokenCase,
+      updating: true,
+      fail: false
+    };
   }
 }

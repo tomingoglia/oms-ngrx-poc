@@ -30,7 +30,7 @@ export class OrderDetailEffects {
     .pipe(
       switchMap(() => {
         return this.orderService.getOrderDetailLegacy().pipe(
-          switchMap(orderDetails => [
+          mergeMap(orderDetails => [
             new ODPIndexActions.AddMany(processODPIndex(orderDetails)),
             new ProductActions.AddMany(processProducts(orderDetails)),
             new OrderDetailActions.LoadDetailLegacySuccess(orderDetails)
@@ -49,19 +49,35 @@ export class OrderDetailEffects {
       OrderDetailActions.OrderDetailActionTypes.CHANGE_QUANTITY
     ),
     map((action: OrderDetailActions.ChangeQuantity) => action),
-    mergeMap(action =>
-      this.orderService
-        .changeQuantity({ id: action.id, quantity: action.value })
-        .pipe(
-          map(
-            orderDetail =>
-              new OrderDetailActions.ChangeQuantitySuccess(orderDetail)
-          ),
-          catchError(error =>
-            of(new OrderDetailActions.ChangeQuantityFail(error))
-          )
+    mergeMap(action => {
+      let orderDetail: any;
+
+      if (action.data.tempId) {
+        orderDetail = {
+          productId: action.data.product.id,
+          //product: action.data.product,
+          quantity: action.data.quantity,
+          brokenCase: false
+          //updating: false,
+          //fail: false
+        };
+      } else {
+        orderDetail = { id: action.data.id, quantity: action.data.quantity };
+      }
+      //console.log("orderService", orderDetail);
+      return this.orderService.changeQuantity(orderDetail).pipe(
+        map(
+          orderDetail =>
+            new OrderDetailActions.ChangeQuantitySuccess(
+              orderDetail,
+              action.data.tempId
+            )
+        ),
+        catchError(error =>
+          of(new OrderDetailActions.ChangeQuantityFail(error))
         )
-    )
+      );
+    })
   );
 }
 
@@ -70,6 +86,7 @@ function processODPIndex(orderDetails: Array<OrderDetail>): Array<PODIndex> {
     return { id: orderDetail.product.id, orderDetailId: orderDetail.id };
   });
 }
+
 function processProducts(orderDetails: Array<OrderDetail>): Array<Product> {
   return orderDetails.map(orderDetail => {
     //Clone product

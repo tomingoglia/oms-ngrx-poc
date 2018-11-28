@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { productSelectors } from "../../store/product";
-import { orderSelectors } from "../../store/order";
-import { orderDetailActions } from "../../store/order-detail";
+import { productSelectors } from "@app/store/product";
+import { orderSelectors } from "@app/store/order";
+import { orderDetailActions } from "@app/store/order-detail";
 
 @Component({
   selector: "product-list",
@@ -12,18 +12,17 @@ import { orderDetailActions } from "../../store/order-detail";
 })
 export class ProductListComponent implements OnInit {
   products$: Observable<any>;
-
   constructor(private store: Store<orderSelectors.State>) {}
 
   ngOnInit() {
     this.products$ = this.store.select(
-      productSelectors.selectProductsWithQuantityInTruck
+      productSelectors.selectProductsWithOrderDetails
     );
     //this.products$.subscribe(products => console.log("products", products));
   }
 
-  changeQuantity(id, value) {
-    this.store.dispatch(new orderDetailActions.ChangeQuantity(id, value));
+  changeQuantity(data) {
+    this.store.dispatch(new orderDetailActions.ChangeQuantity(data));
   }
 
   trackByFnProduct(index, item) {

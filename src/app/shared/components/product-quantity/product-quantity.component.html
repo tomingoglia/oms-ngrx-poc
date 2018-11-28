@@ -1,0 +1,3 @@
+<input [ngModel]="quantity" [disabled]="updating" [ngStyle]="updating && {'background':'grey', 'color': 'red'}"
+    (change)="changeQuantity(orderDetails ? orderDetails.id: null, product, false, $event.target.value)" style="width:20px"
+    type="text">

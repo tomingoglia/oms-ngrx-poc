@@ -1,33 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="C:\Code\oms-ngrx-poc\src\app\store\order\order.effects.spec.ts">
-    <testCase name="Order Effects loadLegacyOrders$ should return a LoadLegacySuccess, with order, on success" duration="118"/>
-    <testCase name="Order Effects loadLegacyOrders$ should return a LoadLegacyFail if there is a failure" duration="34"/>
-  </file>
   <file path="C:\Code\oms-ngrx-poc\src\app\store\order\order.selectors.spec.ts">
-    <testCase name="Selectors selectFullOrderList should return all of the orders" duration="20"/>
+    <testCase name="Selectors selectFullOrderList should return all of the orders" duration="28"/>
+  </file>
+  <file path="C:\Code\oms-ngrx-poc\src\app\store\order\order.effects.spec.ts">
+    <testCase name="Order Effects loadLegacyOrders$ should return a LoadLegacySuccess, with order, on success" duration="162"/>
+    <testCase name="Order Effects loadLegacyOrders$ should return a LoadLegacyFail if there is a failure" duration="35"/>
+  </file>
+  <file path="C:\Code\oms-ngrx-poc\src\app\modules\order\order-list\order-list.component.spec.ts">
+    <testCase name="OrderListComponent should create" duration="442"/>
+    <testCase name="OrderListComponent should render title in a h1 tag and then expect the first order with a product" duration="207"/>
+  </file>
+  <file path="C:\Code\oms-ngrx-poc\src\app\app.component.spec.ts">
+    <testCase name="AppComponent should create the app" duration="517"/>
+    <testCase name="AppComponent should have as title &apos;oms-ngrx-poc&apos;" duration="250"/>
+    <testCase name="AppComponent should render title in a mat-toolbar tag" duration="243"/>
+  </file>
+  <file path="C:\Code\oms-ngrx-poc\src\app\modules\product\product-list\product-list.component.spec.ts">
+    <testCase name="ProductListComponent should create" duration="219"/>
+    <testCase name="ProductListComponent should render title in a h2 tag" duration="205"/>
+  </file>
+  <file path="C:\Code\oms-ngrx-poc\src\app\modules\guide\guide-list\guide-list.component.spec.ts">
+    <testCase name="GuideListComponent should create" duration="245"/>
   </file>
   <file path="C:\Code\oms-ngrx-poc\src\app\store\order\order.reducers.spec.ts">
     <testCase name="Order Reducer Unknown Action should return the intial state" duration="3"/>
     <testCase name="Order Reducer LoadLegacy should return the initalState" duration="4"/>
     <testCase name="Order Reducer LoadLegacySuccess should return the updated order entities" duration="3"/>
   </file>
-  <file path="C:\Code\oms-ngrx-poc\src\app\app.component.spec.ts">
-    <testCase name="AppComponent should create the app" duration="516"/>
-    <testCase name="AppComponent should have as title &apos;oms-ngrx-poc&apos;" duration="199"/>
-    <testCase name="AppComponent should render title in a mat-toolbar tag" duration="178"/>
+  <file path="C:\Code\oms-ngrx-poc\src\app\modules\order\order.module.spec.ts">
+    <testCase name="OrderModule should create an instance" duration="3"/>
   </file>
-  <file path="C:\Code\oms-ngrx-poc\src\app\order\order-list\order-list.component.spec.ts">
-    <testCase name="OrderListComponent should create" duration="324"/>
+  <file path="C:\Code\oms-ngrx-poc\src\app\modules\product\product.module.spec.ts">
+    <testCase name="ProductModule should create an instance" duration="5"/>
   </file>
-  <file path="C:\Code\oms-ngrx-poc\src\app\product\product-list\product-list.component.spec.ts">
-    <testCase name="ProductListComponent should create" duration="241"/>
-    <testCase name="ProductListComponent should render title in a h2 tag" duration="165"/>
-  </file>
-  <file path="C:\Code\oms-ngrx-poc\src\app\order\order.module.spec.ts">
-    <testCase name="OrderModule should create an instance" duration="1"/>
-  </file>
-  <file path="C:\Code\oms-ngrx-poc\src\app\product\product.module.spec.ts">
-    <testCase name="ProductModule should create an instance" duration="2"/>
+  <file path="C:\Code\oms-ngrx-poc\src\app\modules\guide\guide.module.spec.ts">
+    <testCase name="GuideModule should create an instance" duration="2"/>
   </file>
 </testExecutions>

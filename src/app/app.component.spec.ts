@@ -1,11 +1,13 @@
 import { TestBed, async } from "@angular/core/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 import { AppComponent } from "./app.component";
-import { MaterialModule } from "./material";
-import { OrderModule } from "./order/order.module";
-import { ProductModule } from "./product/product.module";
+import { MaterialModule } from "@app/shared/material";
+import { OrderModule } from "@app/modules/order/order.module";
+import { ProductModule } from "@app/modules/product/product.module";
 import { StoreModule } from "@ngrx/store";
-import { reducers } from "./store";
+import { reducers } from "@app/store";
+import { GuideModule } from "@app/modules/guide/guide.module";
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 
 describe("AppComponent", () => {
   beforeEach(async(() => {
@@ -14,11 +16,13 @@ describe("AppComponent", () => {
         RouterTestingModule,
         MaterialModule,
         OrderModule,
+        GuideModule,
         ProductModule,
         StoreModule.forRoot({}),
         StoreModule.forRoot(reducers)
       ],
-      declarations: [AppComponent]
+      declarations: [AppComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 

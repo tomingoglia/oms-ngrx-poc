@@ -2,43 +2,40 @@ import { throwError as observableThrowError, Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError } from "rxjs/operators";
-import { Order } from "./order.model";
-import { OrderDetail } from "../order-detail/order-detail.model";
+import { Guide } from "./guide.model";
+import { GuideDetail } from "../guide-detail/guide-detail.model";
 
 @Injectable()
-export class OrderService {
+export class GuideService {
   constructor(private http$: HttpClient) {}
 
-  getOrders(): Observable<Array<Order>> {
+  getGuides(): Observable<Array<Guide>> {
     return this.http$
-      .get<Array<Order>>(`/orders`)
+      .get<Array<Guide>>(`/guide`)
       .pipe(catchError((error: any) => observableThrowError(error.json())));
   }
 
-  addOrder(order: Order): Observable<Order> {
+  addGuide(guide: Guide): Observable<Guide> {
     return this.http$
-      .post<Order>(`/orders/add`, order)
+      .post<Guide>(`/guide/add`, guide)
       .pipe(catchError((error: any) => observableThrowError(error.json())));
   }
 
-  getOrderLegacy(): Observable<Order> {
+  getGuideLegacy(): Observable<Guide> {
     return this.http$
-      .get<Order>(`/orders-legacy`)
+      .get<Guide>(`/guide-legacy`)
       .pipe(catchError((error: any) => observableThrowError(error.json())));
   }
 
-  getOrderDetailLegacy(): Observable<Array<OrderDetail>> {
+  getGuideDetailLegacy(): Observable<Array<GuideDetail>> {
     return this.http$
-      .get<Array<OrderDetail>>(`/orders-detail-legacy`)
+      .get<Array<GuideDetail>>(`/guide-detail-legacy`)
       .pipe(catchError((error: any) => observableThrowError(error.json())));
   }
 
-  changeQuantity(orderDetail: any): Observable<OrderDetail> {
-    //return new order detail if it doesn't exist.
-
-    console.log("orderDetail", orderDetail);
+  changeQuantity(guideDetail: any): Observable<GuideDetail> {
     return this.http$
-      .post<OrderDetail>(`/order-detail/update`, orderDetail)
+      .post<GuideDetail>(`/guide-detail/update`, guideDetail)
       .pipe(catchError((error: any) => observableThrowError(error.json())));
   }
 }

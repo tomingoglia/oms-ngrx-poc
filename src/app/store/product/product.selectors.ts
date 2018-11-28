@@ -22,7 +22,7 @@ export const {
 } = productReducer.productAdapter.getSelectors(getState);
 
 //Selectors to be used below
-const selectProductsWithQuantityInTruckSelectors = {
+const selectProductsWithhOrderDetailsSelectors = {
   productEntities: productReducer.productAdapter.getSelectors(getProductState)
     .selectAll,
   podIndex: podIndexReducer.ODPIndexAdapter.getSelectors(
@@ -33,15 +33,15 @@ const selectProductsWithQuantityInTruckSelectors = {
   ).selectEntities
 };
 
-export const selectProductsWithQuantityInTruck = createSelector(
+export const selectProductsWithOrderDetails = createSelector(
   //Product Entity
-  selectProductsWithQuantityInTruckSelectors.productEntities,
+  selectProductsWithhOrderDetailsSelectors.productEntities,
 
   //Get pod Index
-  selectProductsWithQuantityInTruckSelectors.podIndex,
+  selectProductsWithhOrderDetailsSelectors.podIndex,
 
   //Get Order Details
-  selectProductsWithQuantityInTruckSelectors.orderDetailEntities,
+  selectProductsWithhOrderDetailsSelectors.orderDetailEntities,
 
   (products, podIndex, orderDetails) => {
     //Add the order details to the products if we have them.

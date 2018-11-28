@@ -2,8 +2,9 @@ import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ProductListComponent } from "./product-list.component";
 import { StoreModule } from "@ngrx/store";
-import { MaterialModule } from "../../material";
-import { reducers } from "../../store";
+import { MaterialModule } from "@app/shared/material";
+import { reducers } from "@app/store";
+import { SharedModule } from "@app/shared/shared.module";
 
 describe("ProductListComponent", () => {
   let component: ProductListComponent;
@@ -14,6 +15,7 @@ describe("ProductListComponent", () => {
       imports: [
         MaterialModule,
         FormsModule,
+        SharedModule,
         ReactiveFormsModule,
         StoreModule.forRoot(reducers)
       ],
